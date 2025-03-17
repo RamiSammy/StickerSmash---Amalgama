@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState, useRef } from 'react';
@@ -15,7 +16,10 @@ import EmojiPicker from '../components/EmojiPicker';
 import EmojiList from '../components/EmojiList';
 import EmojiSticker from '../components/EmojiSticker';
 
-const PlaceholderImage = require('@/assets/images/background-image.png');
+//import PlaceholderImage from '../../assets/images/background-image.png';
+import PlaceholderImage from '../../../assets/images/background-image.png';
+
+
 
 export default function Index() {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(undefined);
@@ -30,7 +34,7 @@ export default function Index() {
   }
 
   const pickImageAsync = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
       quality: 1,
@@ -79,7 +83,7 @@ export default function Index() {
           height: 440,
         });
 
-        let link = document.createElement('a');
+        const link = document.createElement('a');
         link.download = 'sticker-smash.jpeg';
         link.href = dataUrl;
         link.click();
