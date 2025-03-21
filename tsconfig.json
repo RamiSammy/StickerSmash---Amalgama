@@ -1,17 +1,20 @@
 {
   "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true,
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
-  },
+
+    
+      "compilerOptions": {
+        "baseUrl": "./",
+        "paths": {
+          "@/*": ["./app-example/*"]
+        }
+      },
+    
+    
+
   "include": [
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "jest.config.js"  ]
 }
