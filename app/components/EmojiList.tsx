@@ -1,21 +1,34 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, FlatList, Platform, Pressable } from 'react-native';
 import { Image, type ImageSource } from 'expo-image';
 
+
+import emoji1 from '../../assets/images/emoji1.png';
+import emoji2 from '../../assets/images/emoji2.png';
+import emoji3 from '../../assets/images/emoji3.png';
+import emoji4 from '../../assets/images/emoji4.png';
+import emoji5 from '../../assets/images/emoji5.png';
+import emoji6 from '../../assets/images/emoji6.png';
+
+
 type Props = {
-  onSelect: (image: ImageSource) => void;
+  onSelect: (item: ImageSource) => void;
   onCloseModal: () => void;
 };
 
 export default function EmojiList({ onSelect, onCloseModal }: Props) {
+
+
   const [emoji] = useState<ImageSource[]>([
-    require("../../assets/images/emoji1.png"),
-    require("../../assets/images/emoji2.png"),
-    require("../../assets/images/emoji3.png"),
-    require("../../assets/images/emoji4.png"),
-    require("../../assets/images/emoji5.png"),
-    require("../../assets/images/emoji6.png"),
+    emoji1,
+    emoji2,
+    emoji3,
+    emoji4,
+    emoji5,
+    emoji6,
   ]);
+
+
 
   return (
     <FlatList
@@ -29,7 +42,8 @@ export default function EmojiList({ onSelect, onCloseModal }: Props) {
             onSelect(item);
             onCloseModal();
           }}>
-          <Image source={item} key={index} style={styles.image} />
+          {/* eslint-disable-next-line react/react-in-jsx-scope */}
+          <Image source={item} key={index} style={styles.image} testID="emoji-image" />
         </Pressable>
       )}
     />
