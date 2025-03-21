@@ -16,9 +16,8 @@ import EmojiPicker from '../components/EmojiPicker';
 import EmojiList from '../components/EmojiList';
 import EmojiSticker from '../components/EmojiSticker';
 
+import PlaceholderImage from '../../assets/images/background-image.png';
 //import PlaceholderImage from '../../assets/images/background-image.png';
-import PlaceholderImage from '../../../assets/images/background-image.png';
-
 
 
 export default function Index() {
