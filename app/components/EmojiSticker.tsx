@@ -1,3 +1,4 @@
+import React from 'react';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 import { type ImageSource } from 'expo-image';
@@ -8,24 +9,34 @@ type Props = {
 };
 
 export default function EmojiSticker({ imageSize, stickerSource }: Props) {
-  const scaleImage = useSharedValue(imageSize);
+  const scaleImage = useSharedValue(imageSize);  // Valor compartido para el tamaño
   const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
 
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
     .onStart(() => {
+      console.log('¡Me tocaron!');  // Esto imprime cada vez que se detecta un toque
       if (scaleImage.value !== imageSize * 2) {
-        scaleImage.value = scaleImage.value * 2;
+        scaleImage.value = imageSize * 2; // Duplica el tamaño
       } else {
-        scaleImage.value = Math.round(scaleImage.value / 2);
+        scaleImage.value = imageSize; // Vuelve al tamaño original
       }
     });
 
   const imageStyle = useAnimatedStyle(() => {
     return {
-      width: withSpring(scaleImage.value),
+      width: withSpring(scaleImage.value),  // Aplicando animación
       height: withSpring(scaleImage.value),
+    };
+  });
+
+  const containerStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: translateX.value },
+        { translateY: translateY.value },
+      ],
     };
   });
 
@@ -34,24 +45,12 @@ export default function EmojiSticker({ imageSize, stickerSource }: Props) {
     translateY.value += event.changeY;
   });
 
-  const containerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateX: translateX.value,
-        },
-        {
-          translateY: translateY.value,
-        },
-      ],
-    };
-  });
-
   return (
     <GestureDetector gesture={drag}>
-      <Animated.View style={[containerStyle, { top: -350 }]}>
+      <Animated.View style={[containerStyle, { top: -350 }]} testID="sticker-container">
         <GestureDetector gesture={doubleTap}>
           <Animated.Image
+            testID="sticker-image"
             source={stickerSource}
             resizeMode="contain"
             style={[imageStyle, { width: imageSize, height: imageSize }]}
